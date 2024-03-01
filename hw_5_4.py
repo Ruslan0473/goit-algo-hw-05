@@ -1,7 +1,6 @@
 # додаємо декоратор для обробки помилок
 def input_error(func):
     def inner(*args, **kwargs):
-
         try:
             function_name = str(func).split(" ")[1] #функція=команда+аргументи(імя, телефон)
             return func(*args, **kwargs)
@@ -10,7 +9,7 @@ def input_error(func):
             if function_name != str(func).split(" ")[1]:
                 print (f"Сталася помилка {e}")
 
-        return f"Повторіть введення та додайте аргументи"
+        return f"Повторіть команду та додайте аргументи"
     return inner
 
 
@@ -25,8 +24,6 @@ def parse_input(user_input):
 def add_contact(args, contacts):
     name, phone = args #індекси контакту: name[0] phone[1
     contacts[name] = phone
-    if args[0] in contacts.keys():
-        add_contact(args, contacts)
     return "Contact added."
 
 @input_error
@@ -36,7 +33,7 @@ def change_contact(args, contacts):
         return("Contact changed")
     else:
         print(f"No such user {args[0]}")
-        return f"Щоб додати: add Імя телефон" #цез цього повертає None
+        return f"Щоб додати: add Імя телефон" #без цього повертає None
 @input_error
 def show_phone(args, contacts):
     name = args[0]
@@ -44,12 +41,12 @@ def show_phone(args, contacts):
         return contacts[name]
     else:
         print(f"No such user {name}")
-        return f"Щоб додати: add Імя телефон" #цез цього повертає None
+        return f"Щоб додати: add Імя телефон" #без цього повертає None
 
 
 @input_error
 def show_all(args, contacts):
-    s = ""#змінні (стрінг) для збереження та виведення всіх контактів
+    s = ""               #змінна (стрінг) для збереження та виведення всіх контактів
     if contacts:
         for key in contacts:
             s+=(f"{key:10} : {contacts[key]:10}\n")  #поповнення списку з перенесенням на новий рядок(\n) та відступом (:10) пробілів
