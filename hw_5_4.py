@@ -5,11 +5,15 @@ def input_error(func):
             function_name = str(func).split(" ")[1] #функція=команда+аргументи(імя, телефон)
             return func(*args, **kwargs)
         # якщо помилка при введенні команд
-        except Exception as e:
-            if function_name != str(func).split(" ")[1]:
-                print (f"Сталася помилка {e}")
-
-        return f"Повторіть команду та додайте аргументи"
+        except ValueError:
+            if function_name == "add_contact":
+                print (f"Після команди введіть імя та телефон")
+        except IndexError:
+            if function_name == "show_phone":
+                print (f"Після команди введіть імя")
+            elif function_name == "change_contact":
+                print (f"Після команди введіть імя та новий телефон")
+        return f"Повторіть команду"
     return inner
 
 
